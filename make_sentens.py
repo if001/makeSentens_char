@@ -25,13 +25,15 @@ class Trainer():
 
 
     def train(self, model_lstm, train_data, teach_data):
+        cnt = 0
         for tr,te in zip(train_data, teach_data):
+            cnt+=1
             tr = np.array([tr])
             te = np.array([te])
             print("tr",tr.shape)
             print("te",te.shape)
             self.lstm.train(model_lstm, tr, te)
-
+            if cnt % 10: self.lstm.weightController("save")
 
 def main():
     tr = Trainer()

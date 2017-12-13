@@ -66,14 +66,11 @@ class Lstm():
         loss = model.fit(train_data, teach_data,
                                       batch_size = self.lc.batch_size,
                                       epochs=1)
-        # loss = model.fit(train_data, teach_data,
-        #                               batch_size = self.lc.batch_size,
-        #                               epochs=1,
-        #                               validation_split = 0.2)
+        #                             validation_split = 0.2)
         return loss
 
 
-    def waitController(self, model, flag, fname):
+    def weightController(self, model, flag, fname):
         if flag == "save":
             print("save" + self.sc.wait_save_dir+fname)
             model.save(self.sc.wait_save_dir+fname)
