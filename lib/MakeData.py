@@ -7,6 +7,33 @@ class MakeData():
     def __init__(self):
         "docstring"
 
+    def make_data_one(self, char_dict, char_line):
+        train_char_lines_vec = []
+        char_line_vec = []
+        for char in char_line:
+            one_hot = [0] * len(char_dict)
+            one_hot[char_dict.index(char)] = 1
+            char_line_vec.append(one_hot)
+        train_char_lines_vec.append(char_line_vec)
+        return np.array(train_char_lines_vec)
+
+
+    def make_teach_data_one(self, char_dict, char_line):
+        teach_char_lines_vec = []
+
+        char_line_vec = []
+        for char in char_line[1:]:
+            one_hot = [0] * len(char_dict)
+            one_hot[char_dict.index(char)] = 1
+            char_line_vec.append(one_hot)
+        one_hot = [0] * len(char_dict)
+        one_hot[char_dict.index("。")] = 1
+        char_line_vec.append(one_hot)
+        teach_char_lines_vec.append(char_line_vec)
+
+        return np.array(teach_char_lines_vec)
+
+
     def make_data(self, char_dict, char_lines):
         print("1",len(char_lines))
         train_char_lines_vec = []

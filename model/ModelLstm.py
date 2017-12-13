@@ -23,16 +23,16 @@ from keras import regularizers
 import sys,os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # mylib
-#import lib
-import cons
+import lib
+#import cons
 
 class Lstm():
     """This is a test program."""
 
     def __init__(self):
         super().__init__()
-        self.lc = cons.Const.LearningConst()
-        self.cs = cons.Const.SaveConst()
+        self.cl = lib.Const.LearningConst()
+        self.cs = lib.Const.SaveConst()
 
     def make_net(self, dict_len):
         """ make net by reference to Keras official doc """
@@ -41,11 +41,9 @@ class Lstm():
         output_dim = dict_len
 
         encoder_inputs = Input(shape=(None, input_dim))
-        #encoder_outputs, state_h, state_c = LSTM(self.lc.latent_dim)(encoder_inputs)
         hidden_outputs = LSTM(output_dim, return_sequences=True)(encoder_inputs)
         layer_outputs = LSTM(output_dim, return_sequences=True)(hidden_outputs)
-        # encoder_outputs, state_h, state_c = LSTM(self.lc.latent_dim, return_state=True)(encoder_inputs)
-        # layer_outputs = Dense(output_dim)(encoder_outputs)
+
         return Model(encoder_inputs, layer_outputs)
 
     def model_complie(self, model):
@@ -64,7 +62,7 @@ class Lstm():
     def train(self, model, train_data, teach_data):
         """ Run training """
         loss = model.fit(train_data, teach_data,
-                                      batch_size = self.lc.batch_size,
+                                      batch_size = self.cl.batch_size,
                                       epochs=1)
         #                             validation_split = 0.2)
         return loss
@@ -72,11 +70,11 @@ class Lstm():
 
     def weightController(self, model, flag, fname):
         if flag == "save":
-            print("save" + self.sc.wait_save_dir+fname)
-            model.save(self.sc.wait_save_dir+fname)
+            print("save" + self.cs.weight_save_dir + fname)
+            model.save(self.cs.weight_save_dir + fname)
         if flag == "load":
-            print("load" + self.sc.wait_save_dir+fname)
-            model.load(self.sc.wait_save_dir+fname)
+            print("load" + self.cs.weight_save_dir + fname)
+            model.load(self.cs.weight_save_dir + fname)
 
 
 def main():

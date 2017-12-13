@@ -35,21 +35,21 @@ class DataSaping():
         return list(set(self.flatten(__l)))
 
 
-    def save_dict(self, d, dname, fname):
-        if (os.path.exists(dname)):
-            print("over write " + dname + fname)
-            with open(dname + fname, 'w') as f:
+    def save_dict(self, d, fname):
+        if (os.path.exists(fname)):
+            print("over write " + fname)
+            with open(fname, 'w') as f:
                 for value in d :
                     f.write(value + " ")
         else:
-            print("write " + dname + fname)
-            with open(dname + fname, 'a') as f:
+            print("write " + fname)
+            with open(fname, 'a') as f:
                 for value in d :
                     f.write(value + " ")
 
 
-    def load_dict(self, dname, fname):
-        __dict = self.load_file(dname, fname)[0].split(" ")
+    def load_dict(self, fname):
+        __dict = self.load_file(fname)[0].split(" ")
         while(' ' in __dict): __dict.remove(' ')
         return __dict
 

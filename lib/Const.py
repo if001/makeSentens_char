@@ -5,21 +5,22 @@
 #import pylab as plt
 import lib
 
-class Const():
+class LearningConst():
     def __init__(self):
         """ valiable setting"""
-        self.batch_size = 32
+        self.latent_dim = 512
+        self.batch_size = 64
         self.learning_num = 100
         self.check_point = 30
 
+
+class SaveConst():
+    def __init__(self):
         """ directory setting"""
         self.project_path = lib.SetProject.get_path()
 
+        self.weight_save_dir = self.project_path + '/model/weight/'
+        self.weight_fname = 'param.hdf5'
 
-        self.wait_save_dir = self.project_path + '/nn/wait/'
-        self.dict_fdir = self.project_path + "/aozora_text/files/"
-        self.dict_fname = "files_all_rnp.txt"
-
-        self.train_file = self.project_path + "/aozora_text/files/files_all_rnp.txt"
-
-
+        self.dict_fname = self.project_path + "/aozora_text/files/files_all_rnp2.txt"
+        self.train_file = self.project_path + "/aozora_text/files/files_all_rnp2.txt"
