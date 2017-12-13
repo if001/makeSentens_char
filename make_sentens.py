@@ -14,6 +14,7 @@ class Trainer():
     def __init__(self):
         "docstring"
         self.projct_path = lib.SetProject.get_path()
+        self.const = lib.Const.Const()
         self.char_dict = []
         self.char_lines = []
 
@@ -43,8 +44,8 @@ def main():
     l = ds.load_file(tr.projct_path+"/lib/", "test.txt")
     tr.char_lines = ds.make_char_line(l)
 
-    dict_dir = tr.projct_path+"/lib/"
-    dict_fname = "dict.txt"
+    dict_dir = tr.const.dict_fdir
+    dict_fname = tr.const.dict_fname
 
     flag = DictFlag.Make
     if flag == DictFlag.Make :
