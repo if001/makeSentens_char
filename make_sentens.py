@@ -41,7 +41,7 @@ def main():
     md = lib.MakeData.MakeData()
 
     ds = lib.DataShaping.DataSaping()
-    l = ds.load_file(tr.projct_path+"/lib/", "test.txt")
+    l = ds.load_file(tr.const.train_file)
     tr.char_lines = ds.make_char_line(l)
 
     dict_dir = tr.const.dict_fdir
@@ -58,6 +58,7 @@ def main():
     train_data = md.make_data(tr.char_dict, tr.char_lines)
     teach_data = md.make_teach_data(tr.char_dict, tr.char_lines)
     model_lstm = tr.make_net(input_dim=len(tr.char_dict))
+
     tr.train(model_lstm, train_data, teach_data)
 
 

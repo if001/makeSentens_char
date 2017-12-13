@@ -7,8 +7,8 @@ import os
 
 
 class DataSaping():
-    def load_file(self, dname, fname):
-        with open(dname + fname, 'r') as f:
+    def load_file(self, fname):
+        with open(fname, 'r') as f:
             lines = f.readlines()
         return lines
 
