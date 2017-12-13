@@ -1,14 +1,14 @@
 Script.cpython-35m-darwin.so
 __pycache__
 aozora_text/*.txt
-aozora_text2/*.txt
-aozora_text3/*.txt
-aozora_text3/files/*
+aozora_text/zip/*.zip
+aozora_text/files/*
 nn/model/*
 nn/wait/*
 dictionaly/
 lib/__pycache__/
 cons/__pycache__/
+model/__pycache__/
 .DS_Store
 cython_package/build/
 cython_package/cython_package.cpython-35m-darwin.so
