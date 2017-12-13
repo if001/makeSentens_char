@@ -65,7 +65,7 @@ class Lstm():
         """ Run training """
         loss = model.fit(train_data, teach_data,
                                       batch_size = self.lc.batch_size,
-                                      epochs=5)
+                                      epochs=1)
         # loss = model.fit(train_data, teach_data,
         #                               batch_size = self.lc.batch_size,
         #                               epochs=1,

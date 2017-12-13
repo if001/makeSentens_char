@@ -8,15 +8,16 @@ class MakeData():
         "docstring"
 
     def make_data(self, char_dict, char_lines):
-        char_lines_vec = []
+        print("1",len(char_lines))
+        train_char_lines_vec = []
         for char_line in char_lines:
             char_line_vec = []
             for char in char_line:
                 one_hot = [0] * len(char_dict)
                 one_hot[char_dict.index(char)] = 1
                 char_line_vec.append(one_hot)
-            char_lines_vec.append(char_line_vec)
-        return np.array(char_lines_vec)
+            train_char_lines_vec.append(char_line_vec)
+        return np.array(train_char_lines_vec)
 
 
     def make_teach_data(self, char_dict, char_lines):
@@ -27,10 +28,10 @@ class MakeData():
                 one_hot = [0] * len(char_dict)
                 one_hot[char_dict.index(char)] = 1
                 char_line_vec.append(one_hot)
-
             one_hot = [0] * len(char_dict)
             one_hot[char_dict.index("。")] = 1
             char_line_vec.append(one_hot)
+
             teach_char_lines_vec.append(char_line_vec)
 
         return np.array(teach_char_lines_vec)

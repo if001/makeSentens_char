@@ -25,17 +25,11 @@ class Trainer():
 
 
     def train(self, model_lstm, train_data, teach_data):
-        # print("tr",train_data)
-        # print("te",teach_data)
-        # print("--")
-        # print("tr",train_data.shape)
-        # print("te",teach_data.shape)
-
-        for tr,te in train_data, teach_data:
+        for tr,te in zip(train_data, teach_data):
             tr = np.array([tr])
             te = np.array([te])
             print("tr",tr.shape)
-            print("te",te.shape)            
+            print("te",te.shape)
             self.lstm.train(model_lstm, tr, te)
 
 
