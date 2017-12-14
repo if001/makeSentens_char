@@ -56,6 +56,7 @@ def main():
 
     model_lstm = tr.make_net(input_dim=len(tr.char_dict))
     for char_line in tr.char_lines:
+        print("train at ",tr.char_lines.index(char_line)/len(tr.char_lines))
         print(char_line)
         train_data = md.make_data_one(tr.char_dict, char_line)
         teach_data = md.make_teach_data_one(tr.char_dict, char_line)
