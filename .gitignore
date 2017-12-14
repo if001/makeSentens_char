@@ -3,13 +3,13 @@ __pycache__
 aozora_text/*.txt
 aozora_text/zip/*.zip
 aozora_text/files/*
-nn/model/*
-nn/wait/*
+
 dictionaly/
 lib/__pycache__/
 cons/__pycache__/
 model/__pycache__/
+model/weight/*
+dict/*
+
 .DS_Store
-cython_package/build/
-cython_package/cython_package.cpython-35m-darwin.so
 !.gitkeep

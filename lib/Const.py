@@ -22,5 +22,5 @@ class SaveConst():
         self.weight_save_dir = self.project_path + '/model/weight/'
         self.weight_fname = 'param.hdf5'
 
-        self.dict_fname = self.project_path + "/aozora_text/files/files_all_rnp2.txt"
+        self.dict_fname = self.project_path + "/dict/dict.txt"
         self.train_file = self.project_path + "/aozora_text/files/files_all_rnp2.txt"
