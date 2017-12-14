@@ -79,8 +79,13 @@ class Lstm():
             model.save(self.cs.weight_save_dir + fname)
         if flag == "load":
             print("load" + self.cs.weight_save_dir + fname)
-            model.load(self.cs.weight_save_dir + fname)
+            # model.load(self.cs.weight_save_dir + fname)
+            model.load_weights(self.cs.weight_save_dir + fname)
 
+
+    def loadModel(self, fname):
+            print("load model" + self.cs.weight_save_dir + fname)
+            return load(self.cs.weight_save_dir + fname)
 
 def main():
     lstm = Lstm()
