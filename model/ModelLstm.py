@@ -44,9 +44,8 @@ class Lstm():
         output_dim = dict_len
 
         encoder_inputs = Input(shape=(None, input_dim))
-        layer_outputs = SimpleRNN(output_dim, return_sequences=True)(encoder_inputs)
-        # hidden_outputs = LSTM(output_dim, return_sequences=True)(encoder_inputs)
-        # layer_outputs = LSTM(output_dim, return_sequences=True)(hidden_outputs)
+        # layer_outputs = SimpleRNN(output_dim, return_sequences=True)(encoder_inputs)
+        layer_outputs = LSTM(output_dim, return_sequences=True)(encoder_inputs)
 
         return Model(encoder_inputs, layer_outputs)
 
