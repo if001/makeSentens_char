@@ -4,6 +4,7 @@ from keras.models import Model
 
 from keras.layers import Input, LSTM, RepeatVector
 from keras.models import Sequential
+from keras.models import load_model
 # from keras.layers.wrappers import TD
 
 from keras.layers.wrappers import Bidirectional as Bi
@@ -83,9 +84,9 @@ class Lstm():
             model.load_weights(self.cs.weight_save_dir + fname)
 
 
-    def loadModel(self, fname):
+    def load_model(self, fname):
             print("load model" + self.cs.weight_save_dir + fname)
-            return load(self.cs.weight_save_dir + fname)
+            return load_model(self.cs.weight_save_dir + fname)
 
 def main():
     lstm = Lstm()

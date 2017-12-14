@@ -2,7 +2,7 @@ import numpy as np
 
 import lib
 import model
-
+import sys
 #from enum import Flag, auto
 
 class DictFlag():
@@ -10,8 +10,9 @@ class DictFlag():
     Load = "load"
 
 class TrainFlag():
-    train = "train"
-    make = "make"
+    train = "--train"
+    resume = "--resume"
+    make = "--make"
 
 class Trainer():
     def __init__(self):
@@ -53,6 +54,7 @@ class Trainer():
                 vec_index = list(vec[0][0]).index(max(vec[0][0]))
                 char = char_dict[vec_index]
                 sentens += char
+                if len(char) > 50: break
                 if char == "BOS": break
                 if char == "。": break
             print(">> ",sentens)
@@ -76,10 +78,13 @@ def main():
 
     print("dict len :", len(tr.char_dict))
 
-    #t_flag = TrainFlag.train
-    t_flag = TrainFlag.make
-    if t_flag == TrainFlag.train:
-        model_lstm = tr.make_net(input_dim=len(tr.char_dict))
+    if TrainFlag.train in sys.argv:
+
+        if TrainFlag.resume in sys.argv:
+            model_lstm = tr.lstm.load_model(tr.cs.weight_fname)
+        else:
+            model_lstm = tr.make_net(input_dim=len(tr.char_dict))
+
         for char_line in tr.char_lines:
             print("train at ",tr.char_lines.index(char_line),"/",len(tr.char_lines))
             print(char_line)
@@ -89,10 +94,12 @@ def main():
             if tr.char_lines.index(char_line)  % 10:
                 tr.lstm.weightController(model_lstm, "save", tr.cs.weight_fname)
 
-    if t_flag == TrainFlag.make:
-        model_lstm = tr.make_net(input_dim=len(tr.char_dict))
-        tr.lstm.weightController(model_lstm, "load", tr.cs.weight_fname)
+    elif TrainFlag.make in sys.argv:
+        model_lstm = tr.lstm.load_model(tr.cs.weight_fname)
         tr.make_sentens(model_lstm, tr.char_dict)
+
+    else :
+        print("consol execute flag is invalid!")
 
 if __name__ == "__main__":
    main()
