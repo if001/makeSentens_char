@@ -44,7 +44,6 @@ class Lstm():
         output_dim = dict_len
 
         encoder_inputs = Input(shape=(None, input_dim))
-        # layer_outputs = SimpleRNN(output_dim, return_sequences=True)(encoder_inputs)
         layer_outputs = LSTM(output_dim, return_sequences=True)(encoder_inputs)
 
         return Model(encoder_inputs, layer_outputs)
@@ -52,10 +51,9 @@ class Lstm():
 
     def model_complie(self, model):
         """ complie """
-        optimizer = 'rmsprop'
-        #optimizer = RMSprop(lr=0.001, rho=0.9, epsilon=1e-08, decay=0.0)
-        # optimizer = 'Adam'
-        loss = 'mean_squared_error'
+        optimizer = RMSprop(lr=0.001, rho=0.9, epsilon=1e-08, decay=0.0)
+        # loss = 'mean_squared_error'
+        loss = 'categorical_crossentropy'
         model.compile(optimizer=optimizer,
                       loss=loss,
                       metrics=['accuracy'])

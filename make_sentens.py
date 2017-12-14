@@ -20,12 +20,12 @@ class Trainer():
         self.projct_path = lib.SetProject.get_path()
         self.cl = lib.Const.LearningConst()
         self.cs = lib.Const.SaveConst()
+        self.lstm = model.ModelLstm.Lstm()
 
         self.char_dict = []
         self.char_lines = []
 
     def make_net(self, input_dim):
-        self.lstm = model.ModelLstm.Lstm()
         model_lstm = self.lstm.make_net(input_dim)
         self.lstm.model_complie(model_lstm)
         return model_lstm
@@ -40,8 +40,6 @@ class Trainer():
             self.lstm.train(model_lstm, tr, te)
 
 
-
-            
     def make_sentens(self, model_lstm, char_dict):
         one_hot = [0] * len(char_dict)
         one_hot[char_dict.index("。")] = 1
@@ -69,7 +67,7 @@ def main():
     tr.char_lines = ds.make_char_line(l)
 
 
-    flag = DictFlag.Load
+    flag = DictFlag.Make
     if flag == DictFlag.Make :
         tr.char_dict = ds.make_dict(tr.char_lines)
         ds.save_dict(tr.char_dict, tr.cs.dict_fname)
@@ -90,7 +88,7 @@ def main():
         else:
             start_index = 0
         for char_line in tr.char_lines[start_index:]:
-            print("train at ",tr.char_lines.index(char_line),"/",len(tr.char_lines))
+            print("train at ", tr.char_lines.index(char_line), "/", len(tr.char_lines))
             print(char_line)
             train_data = md.make_data_one(tr.char_dict, char_line)
             teach_data = md.make_teach_data_one(tr.char_dict, char_line)
