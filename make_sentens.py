@@ -85,13 +85,17 @@ def main():
         else:
             model_lstm = tr.make_net(input_dim=len(tr.char_dict))
 
-        for char_line in tr.char_lines:
+        if "-t" in sys.argv:
+            start_index = sys.argv[sys.argv.index("-t")+1]
+        else:
+            start_index = 0
+        for char_line in tr.char_lines[start_index:]:
             print("train at ",tr.char_lines.index(char_line),"/",len(tr.char_lines))
             print(char_line)
             train_data = md.make_data_one(tr.char_dict, char_line)
             teach_data = md.make_teach_data_one(tr.char_dict, char_line)
             tr.train(model_lstm, train_data, teach_data)
-            if tr.char_lines.index(char_line)  % 10:
+            if (tr.char_lines.index(char_line) % 50) == 0:
                 tr.lstm.weightController(model_lstm, "save", tr.cs.weight_fname)
 
     elif TrainFlag.make in sys.argv:
