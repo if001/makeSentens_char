@@ -3,11 +3,12 @@ __pycache__
 aozora_text/*.txt
 aozora_text/zip/*.zip
 aozora_text/files/*
+tb.log
 
 dictionaly/
-lib/__pycache__/
-cons/__pycache__/
-model/__pycache__/
+lib/__pycache__/*.pyc
+cons/__pycache__/*.pyc
+model/__pycache__/*.pyc
 model/weight/*
 dict/*
 

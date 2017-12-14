@@ -8,13 +8,13 @@ from keras.models import Sequential
 
 from keras.layers.wrappers import Bidirectional as Bi
 from keras.layers.wrappers import TimeDistributed as TD
-from keras.layers          import Lambda, Input, Dense, GRU, LSTM, RepeatVector, concatenate, Dropout, Bidirectional
+from keras.layers          import Lambda, Input, Dense, GRU, LSTM, RepeatVector, concatenate, Dropout, Bidirectional, SimpleRNN
 from keras.models          import Model
 from keras.layers.core     import Flatten
 from keras.layers          import merge, multiply
 from keras.optimizers import Adam,SGD,RMSprop
 
-from keras.callbacks import EarlyStopping
+from keras.callbacks import EarlyStopping, TensorBoard
 from keras.layers.normalization import BatchNormalization as BN
 
 from keras import regularizers
@@ -33,6 +33,8 @@ class Lstm():
         super().__init__()
         self.cl = lib.Const.LearningConst()
         self.cs = lib.Const.SaveConst()
+        self.tb_cb = TensorBoard(log_dir="./tb.log", histogram_freq=0)
+
 
     def make_net(self, dict_len):
         """ make net by reference to Keras official doc """
@@ -41,10 +43,12 @@ class Lstm():
         output_dim = dict_len
 
         encoder_inputs = Input(shape=(None, input_dim))
-        hidden_outputs = LSTM(output_dim, return_sequences=True)(encoder_inputs)
-        layer_outputs = LSTM(output_dim, return_sequences=True)(hidden_outputs)
+        layer_outputs = SimpleRNN(output_dim, return_sequences=True)(encoder_inputs)
+        # hidden_outputs = LSTM(output_dim, return_sequences=True)(encoder_inputs)
+        # layer_outputs = LSTM(output_dim, return_sequences=True)(hidden_outputs)
 
         return Model(encoder_inputs, layer_outputs)
+
 
     def model_complie(self, model):
         """ complie """
@@ -63,8 +67,9 @@ class Lstm():
         """ Run training """
         loss = model.fit(train_data, teach_data,
                                       batch_size = self.cl.batch_size,
-                                      epochs=1)
-        #                             validation_split = 0.2)
+                                      epochs=1,
+                         callbacks=[self.tb_cb])
+
         return loss
 
 

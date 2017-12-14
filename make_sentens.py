@@ -28,15 +28,12 @@ class Trainer():
 
 
     def train(self, model_lstm, train_data, teach_data):
-        cnt = 0
         for tr,te in zip(train_data, teach_data):
-            cnt+=1
             tr = np.array([tr])
             te = np.array([te])
             print("tr",tr.shape)
             print("te",te.shape)
             self.lstm.train(model_lstm, tr, te)
-            if cnt % 10: self.lstm.weightController(model_lstm, "save", self.cs.weight_fname)
 
 def main():
     tr = Trainer()
@@ -56,13 +53,14 @@ def main():
 
     print("dict len :", len(tr.char_dict))
 
+
     model_lstm = tr.make_net(input_dim=len(tr.char_dict))
     for char_line in tr.char_lines:
         print(char_line)
         train_data = md.make_data_one(tr.char_dict, char_line)
         teach_data = md.make_teach_data_one(tr.char_dict, char_line)
         tr.train(model_lstm, train_data, teach_data)
-
+        # if cnt % 10: self.lstm.weightController(model_lstm, "save", self.cs.weight_fname)
 
 if __name__ == "__main__":
    main()
