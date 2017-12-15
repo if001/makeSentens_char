@@ -78,7 +78,7 @@ def main():
     tr.char_lines = ds.make_char_line(l)
 
 
-    flag = DictFlag.Load
+    flag = DictFlag.Make
     if flag == DictFlag.Make :
         tr.char_dict = ds.make_dict(tr.char_lines)
         ds.save_dict(tr.char_dict, tr.cs.dict_fname)
@@ -101,7 +101,7 @@ def main():
             start_index = 0
 
         for char_line in tr.char_lines[start_index:]:
-            print("train at ",tr.char_lines.index(char_line),"/",len(tr.char_lines))
+            print("train at ", tr.char_lines.index(char_line), "/", len(tr.char_lines))
             print(char_line)
             train_data = md.make_data_one(tr.char_dict, char_line)
             teach_data = md.make_teach_data_one(tr.char_dict, char_line)
