@@ -56,7 +56,11 @@ class DataSaping():
 
 
     def load_dict(self, fname):
-        __dict = self.load_file(fname)[0].split(" ")
+        with open(fname, 'r') as f:
+            __lines = f.read()
+        
+        __dict = __lines.split(" ")
+        
         while(' ' in __dict): __dict.remove(' ')
         return __dict
 

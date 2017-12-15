@@ -77,8 +77,7 @@ def main():
     l = ds.load_file(tr.cs.train_file)
     tr.char_lines = ds.make_char_line(l)
 
-
-    flag = DictFlag.Make
+    flag = DictFlag.Load
     if flag == DictFlag.Make :
         tr.char_dict = ds.make_dict(tr.char_lines)
         ds.save_dict(tr.char_dict, tr.cs.dict_fname)
@@ -95,10 +94,6 @@ def main():
         else:
             model_lstm = tr.make_net(input_dim=len(tr.char_dict))
 
-        # if "-t" in sys.argv:
-        #     start_index = sys.argv[int(sys.argv.index("-t")+1)]
-        # else:
-        #     start_index = 0
         for i in range(0,len(tr.char_lines)-1,100):
             train_data = []
             teach_data = []
