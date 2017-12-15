@@ -9,10 +9,10 @@ class LearningConst():
     def __init__(self):
         """ valiable setting"""
         self.latent_dim = 512
-        self.batch_size = 64
+        self.batch_size = 100
         self.learning_num = 100
         self.check_point = 30
-
+        self.sentens_len = 100
 
 class SaveConst():
     def __init__(self):
