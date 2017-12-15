@@ -14,18 +14,29 @@ class TrainFlag():
     resume = "--resume"
     make = "--make"
 
+
+def usage():
+    print("option")
+    print("--train : training")
+    print("--train  --resume : resume training")
+    print("--train  --resume -t <num>: resume training at <num>")
+    print("--make: make sentens")
+    exit(0)
+
+    
 class Trainer():
     def __init__(self):
         "docstring"
         self.projct_path = lib.SetProject.get_path()
         self.cl = lib.Const.LearningConst()
         self.cs = lib.Const.SaveConst()
+        self.lstm = model.Models.Lstm2()
 
         self.char_dict = []
         self.char_lines = []
 
+
     def make_net(self, input_dim):
-        self.lstm = model.ModelLstm.Lstm()
         model_lstm = self.lstm.make_net(input_dim)
         self.lstm.model_complie(model_lstm)
         return model_lstm
@@ -40,8 +51,6 @@ class Trainer():
             self.lstm.train(model_lstm, tr, te)
 
 
-
-            
     def make_sentens(self, model_lstm, char_dict):
         one_hot = [0] * len(char_dict)
         one_hot[char_dict.index("。")] = 1
@@ -82,13 +91,15 @@ def main():
 
         if TrainFlag.resume in sys.argv:
             model_lstm = tr.lstm.load_model(tr.cs.weight_fname)
+            model_lstm.summary()
         else:
             model_lstm = tr.make_net(input_dim=len(tr.char_dict))
 
         if "-t" in sys.argv:
-            start_index = sys.argv[sys.argv.index("-t")+1]
+            start_index = sys.argv[int(sys.argv.index("-t")+1)]
         else:
             start_index = 0
+
         for char_line in tr.char_lines[start_index:]:
             print("train at ",tr.char_lines.index(char_line),"/",len(tr.char_lines))
             print(char_line)
@@ -103,7 +114,7 @@ def main():
         tr.make_sentens(model_lstm, tr.char_dict)
 
     else :
-        print("consol execute flag is invalid!")
+        usage()
 
 if __name__ == "__main__":
    main()
