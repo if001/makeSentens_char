@@ -88,9 +88,9 @@ class File():
 
 
     def del_word(self,line):
-        line = re.sub(r'\n', "", line)
-        line = re.sub(r'「', "", line)
-        line = re.sub(r'」', "", line)
+        # line = re.sub(r'\n', "", line)
+        # line = re.sub(r'「', "", line)
+        # line = re.sub(r'」', "", line)
         line = re.sub(r'【', "", line)
         line = re.sub(r'】', "", line)
         line = re.sub(r'\u3000', "", line)
@@ -120,7 +120,7 @@ class File():
                 if (self.checkline(line) == 0):
                     line = self.rm_between(line)
                     line = self.del_word(line)
-                    line = self.add_token(line)
+                    # line = self.add_token(line)
                     line = self.add_end(line)
                     self.getlines.append(line)
 
@@ -133,12 +133,11 @@ class File():
         with open(project_dir + save_dir + fname, 'w') as file:
             print("save " + project_dir+save_dir+fname)
             for line in self.getlines:
-                file.write(line+"\n")
-
+                file.write(line)
 
 def test():
     myfile = File()
-    fname = "re_oshieto_tabisuru_otoko.txt"
+    fname = "re_oshieto_tabisuru_otoko2.txt"
     myfile.readfile(fname)
     myfile.writefile(fname)
 
@@ -152,5 +151,5 @@ def main():
         myfile.writefile(fname)
 
 if __name__ == "__main__" :
-    # test()
-    main()
+    test()
+    #main()
