@@ -117,10 +117,9 @@ class Lstm2(Net):
 
     def model_complie(self, model):
         """ complie """
-        optimizer = 'rmsprop'
-        #optimizer = RMSprop(lr=0.001, rho=0.9, epsilon=1e-08, decay=0.0)
-        # optimizer = 'Adam'
-        loss = 'mean_squared_error'
+        # optimizer = 'rmsprop'
+        optimizer = RMSprop(lr=0.001, rho=0.9, epsilon=1e-08, decay=0.0)
+        loss = 'categorical_crossentropy'
         model.compile(optimizer=optimizer,
                       loss=loss,
                       metrics=['accuracy'])
