@@ -13,6 +13,12 @@ class LearningConst():
         self.learning_num = 100
         self.check_point = 30
         self.sentens_len = 100
+        self.tau = 5
+
+
+        self.batch_size = 2
+        self.sentens_len = 5
+        self.tau = 2
 
 class SaveConst():
     def __init__(self):

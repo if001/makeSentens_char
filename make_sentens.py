@@ -42,15 +42,6 @@ class Trainer():
         return model_lstm
 
 
-    def train(self, model_lstm, train_data, teach_data):
-        for tr,te in zip(train_data, teach_data):
-            tr = np.array([tr])
-            te = np.array([te])
-            print("tr",tr.shape)
-            print("te",te.shape)
-            self.lstm.train(model_lstm, tr, te)
-
-
     def make_sentens(self, model_lstm, char_dict):
         one_hot = [0] * len(char_dict)
         one_hot[char_dict.index("。")] = 1
@@ -77,7 +68,7 @@ def main():
     l = ds.load_file(tr.cs.train_file)
     tr.char_lines = ds.make_char_line(l)
 
-    flag = DictFlag.Load
+    flag = DictFlag.Make
     if flag == DictFlag.Make :
         tr.char_dict = ds.make_dict(tr.char_lines)
         ds.save_dict(tr.char_dict, tr.cs.dict_fname)
@@ -94,17 +85,22 @@ def main():
         else:
             model_lstm = tr.make_net(input_dim=len(tr.char_dict))
 
-        for i in range(0,len(tr.char_lines)-1,100):
-            train_data = []
-            teach_data = []
-            for j in range(tr.cl.batch_size):
-                train_data += md.make_data(tr.char_dict, tr.char_lines[i+j:i+j+100])
-                teach_data += md.make_data(tr.char_dict, tr.char_lines[i+j+1:i+j+101])
-            train_data = np.array(train_data)
-            teach_data = np.array(teach_data)
-            tr.train(model_lstm, train_data, teach_data)
-            if (i % 50) == 0:
-                tr.lstm.weightController(model_lstm, "save", tr.cs.weight_fname)
+        window = tr.cl.sentens_len
+        size = (tr.cl.batch_size - 1) * tr.cl.tau + window
+
+        for i in range(0, len(tr.char_lines)-size):
+            train_data_batch = []
+            teach_data_batch = []
+            for j in range(0, size, tr.cl.tau):
+                print("c: ", tr.char_lines[i + j: i + j + window])
+                train_data_batch.append(md.make_data(tr.char_dict, tr.char_lines[i + j: i + j + window])) 
+                teach_data_batch.append(md.make_data(tr.char_dict,  tr.char_lines[i + j + 1: i + j + window + 1]))
+            train_data_batch = np.array(train_data_batch) 
+            teach_data_batch = np.array(teach_data_batch)
+            print(train_data_batch.shape)
+            print("")
+            tr.lstm.train(model_lstm, train_data_batch, teach_data_batch)
+
 
     elif TrainFlag.make in sys.argv:
         model_lstm = tr.lstm.load_model(tr.cs.weight_fname)

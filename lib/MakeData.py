@@ -42,8 +42,7 @@ class MakeData():
             one_hot = [0] * len(char_dict)
             one_hot[char_dict.index(char)] = 1
             char_line_vec.append(one_hot)
-        train_char_lines_vec.append(char_line_vec)
-        return train_char_lines_vec
+        return char_line_vec
 
 
 def main():
