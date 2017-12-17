@@ -16,9 +16,9 @@ class LearningConst():
         self.tau = 5
 
 
-        self.batch_size = 2
+        self.batch_size = 100
         self.sentens_len = 5
-        self.tau = 2
+        self.tau = 3
 
 class SaveConst():
     def __init__(self):

@@ -86,7 +86,6 @@ class Lstm(Net):
         loss = model.fit(train_data, teach_data,
                                       batch_size = self.cl.batch_size,
                                       epochs=1)
-                         # callbacks=[self.tb_cb])
 
         return loss
 
@@ -130,9 +129,9 @@ class Lstm2(Net):
     def train(self, model, train_data, teach_data):
         """ Run training """
         loss = model.fit(train_data, teach_data,
-                                      batch_size = self.cl.batch_size,
-                                      epochs=1)
-
+                         batch_size = self.cl.batch_size,
+                         epochs=1,
+                         validation_split=0.2)
         return loss
 
 

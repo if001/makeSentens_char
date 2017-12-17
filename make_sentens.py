@@ -23,7 +23,7 @@ def usage():
     print("--make: make sentens")
     exit(0)
 
-    
+
 class Trainer():
     def __init__(self):
         "docstring"
@@ -68,7 +68,7 @@ def main():
     l = ds.load_file(tr.cs.train_file)
     tr.char_lines = ds.make_char_line(l)
 
-    flag = DictFlag.Make
+    flag = DictFlag.Load
     if flag == DictFlag.Make :
         tr.char_dict = ds.make_dict(tr.char_lines)
         ds.save_dict(tr.char_dict, tr.cs.dict_fname)
@@ -92,13 +92,10 @@ def main():
             train_data_batch = []
             teach_data_batch = []
             for j in range(0, size, tr.cl.tau):
-                print("c: ", tr.char_lines[i + j: i + j + window])
                 train_data_batch.append(md.make_data(tr.char_dict, tr.char_lines[i + j: i + j + window])) 
                 teach_data_batch.append(md.make_data(tr.char_dict,  tr.char_lines[i + j + 1: i + j + window + 1]))
             train_data_batch = np.array(train_data_batch) 
             teach_data_batch = np.array(teach_data_batch)
-            print(train_data_batch.shape)
-            print("")
             tr.lstm.train(model_lstm, train_data_batch, teach_data_batch)
 
 
